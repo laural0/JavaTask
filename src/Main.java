@@ -3,60 +3,55 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-
   // testinput = t3e1s1n1p1u1
-
   public long noOfOccurences(String string, Integer characterAsLong) {
     return string.chars().filter(letter -> letter == characterAsLong).count();
   }
 
-  public String arrayTask(String input) {
-
-    String finalInput = input.replaceAll("\\s", "");
-
-    int[] occurences = new int[256];
-
-    char[] toCharacters = finalInput.toCharArray();
-
-    for (char character : toCharacters) {
-      occurences[(int) character]++;
-    }
-
-    StringBuilder result = new StringBuilder();
-    for (char character : toCharacters) {
-      if (occurences[character] > 0) {
-        result.append(character).append(occurences[character]);
-        occurences[character] = 0;
-      }
-    }
-
-    return result.toString();
+  public int indexInString(String string, Character character){
+    return string.indexOf(character);
   }
+
 
   public String hashMapTask(String input) {
 
+
+    HashMap<Character, Integer> occurency = new HashMap<>();
+    List<Character> characters = new ArrayList<>();
+
     String finalInput = input.replaceAll("\\s", "");
+    char[] charArray = finalInput.toCharArray();
 
-    HashMap<Character, Integer> hashMap = new HashMap<>();
+    for (char character : charArray) {
 
-    char[] toCharacters = finalInput.toCharArray();
+      if (occurency.containsKey(character)) {
+        occurency.put(character, occurency.get(character) + 1);
+      } else occurency.put(character, 1);
 
-    for (char character : toCharacters) {
-      if (hashMap.containsKey(character)) hashMap.put(character, hashMap.get(character) + 1);
-      else hashMap.put(character, 1);
+
+      if(!characters.contains(character)) characters.add(character);
     }
+
+    characters =
+        characters.stream()
+            .sorted(
+                (o1, o2) -> {
+                  if (!occurency.get(o1).equals(occurency.get(o2)))
+                    return -Integer.compare(occurency.get(o1), occurency.get(o2));
+                  else return Integer.compare(indexInString(input, o1), indexInString(input, o2));
+                })
+            .toList();
 
     StringBuilder result = new StringBuilder();
 
-    for (char character : toCharacters) {
-      if (hashMap.containsKey(character)) {
-        result.append(character).append(hashMap.get(character));
-        hashMap.remove(character);
-      }
+    for (Character character : characters) {
+      result.append(character).append(occurency.get(character));
     }
 
     return result.toString();
   }
+
+
 
   public String streamTask(String input) {
 

@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MainTest {
@@ -10,6 +12,16 @@ public class MainTest {
   @Before
   public void setUp() {
     main = new Main();
+  }
+
+  @Test
+  public void stream_sameChar() {
+
+    String input = "aaaaa";
+
+    String actualResult = main.streamTask(input);
+
+    assertEquals("a5", actualResult);
   }
 
   @Test
@@ -44,6 +56,7 @@ public class MainTest {
 
   @Test
   public void stream_oneChar() {
+
     String input = "t";
 
     String actualResult = main.streamTask(input);
@@ -52,18 +65,28 @@ public class MainTest {
   }
 
   @Test
-  public void hashMap_contiguu() {
-    String input = "tttaaapp";
+  public void hashMap_sameChar() {
 
-    input = input.replaceAll("\\s", "");
+    String input = "aaaaa";
 
     String actualResult = main.hashMapTask(input);
 
-    assertEquals("t3a3p2", actualResult);
+    assertEquals("a5", actualResult);
+  }
+
+  @Test
+  public void hashMap_contiguu() {
+
+    String input = "tttaaaapp";
+
+    String actualResult = main.hashMapTask(input);
+
+    assertEquals("a4t3p2", actualResult);
   }
 
   @Test
   public void hashMap_random() {
+
     String input = "testinput";
 
     String actualResult = main.hashMapTask(input);
@@ -89,56 +112,9 @@ public class MainTest {
     String actualResult = main.hashMapTask(input);
 
     assertEquals("", actualResult);
-
   }
 
-  @Test
-  public void array_random() {
-
-    String input = "testinput";
-
-    String actualResult = main.arrayTask(input);
-
-    assertEquals("t3e1s1i1n1p1u1", actualResult);
-  }
-  @Test
-  public void array_oneChar(){
-
-    String input = "a";
-
-    String actualResult = main.arrayTask(input);
-
-    assertEquals("a1", actualResult);
-
-  }
-
-  @Test
-  public void array_0sizeString(){
-
-    String input="";
-
-    String actualResult = main.arrayTask(input);
-
-    assertEquals("", actualResult);
-
-  }
-
-  @Test
-  public void array_contiguu() {
-
-    String input="aabbbcc";
-
-    String actualResult = main.arrayTask(input);
-
-    assertEquals("a2b3c2", actualResult);
-  }
 
 }
 
-  //  @Test
-  //  public void task_randomCase(){
-  ////    main new Main();
-  //
-  ////    String input = ""
-  //  }
-  // }
+
