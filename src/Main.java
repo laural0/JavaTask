@@ -1,3 +1,4 @@
+import java.security.KeyPair;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,31 +10,36 @@ public class Main {
     return string.chars().filter(letter -> letter == characterAsLong).count();
   }
 
-  //  public String hashMaptask(String input) {
-  //    HashMap<Character, Integer> values = new HashMap<>();
-  //
-  //    char[] toCharacters = input.toCharArray();
-  //
-  //    for (char character : toCharacters) {
-  //      if (values.containsKey(character)) values.put(character, values.get(character) + 1);
-  //      else values.put(character, 1);
-  //    }
-  //
-  //    List<Integer> list = new ArrayList<>(values.values());
-  //    list.sort(Collections.reverseOrder());
-  //
-  //    StringBuilder result = new StringBuilder();
-  //    for (Integer occ : list)
-  //      result.append().append(entry.getValue());
-  //
-  //    input = result.toString();
-  //
-  //    return input;
-  //  }
+  public String hashMaptask(String input) {
+
+    String finalInput = input.replaceAll("\\s", "");
+
+    HashMap<Character, Integer> hashMap = new HashMap<>();
+
+    char[] toCharacters = finalInput.toCharArray();
+
+    for (char character : toCharacters) {
+      if (hashMap.containsKey(character)) hashMap.put(character, hashMap.get(character) + 1);
+      else hashMap.put(character, 1);
+    }
+
+    StringBuilder result = new StringBuilder();
+
+    for (char character : toCharacters) {
+      if (hashMap.containsKey(character)) {
+        result.append(character).append(hashMap.get(character));
+        hashMap.remove(character);
+      }
+    }
+
+    return result.toString();
+  }
 
   public String task(String input) {
-    // Comparator.comparing(value -> noOfOccurences(input, value))
-    return input
+
+    String finalInput = input.replaceAll("\\s", "");
+
+    return finalInput
         .chars()
         .boxed()
         .sorted(
@@ -41,7 +47,7 @@ public class Main {
               @Override
               public int compare(Integer o1, Integer o2) {
                 return -Integer.compare(
-                    (int) noOfOccurences(input, o1), (int) noOfOccurences(input, o2));
+                    (int) noOfOccurences(finalInput, o1), (int) noOfOccurences(finalInput, o2));
               }
             })
         .distinct()
@@ -49,7 +55,7 @@ public class Main {
             letter ->
                 new StringBuilder()
                     .append(Character.toString(letter))
-                    .append(noOfOccurences(input, letter)))
+                    .append(noOfOccurences(finalInput, letter)))
         .collect(Collectors.joining());
   }
 
