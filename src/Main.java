@@ -1,4 +1,3 @@
-import java.security.KeyPair;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -43,13 +42,8 @@ public class Main {
         .chars()
         .boxed()
         .sorted(
-            new Comparator<Integer>() {
-              @Override
-              public int compare(Integer o1, Integer o2) {
-                return -Integer.compare(
-                    (int) noOfOccurences(finalInput, o1), (int) noOfOccurences(finalInput, o2));
-              }
-            })
+                (o1, o2) -> -Integer.compare(
+                    (int) noOfOccurences(finalInput, o1), (int) noOfOccurences(finalInput, o2)))
         .distinct()
         .map(
             letter ->
